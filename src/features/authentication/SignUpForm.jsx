@@ -1,4 +1,3 @@
-import { DevTool } from '@hookform/devtools';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -20,7 +19,6 @@ function SignUpForm() {
     handleSubmit,
     reset,
     formState: { errors, isValid },
-    control,
     getValues,
     watch,
   } = useForm({
@@ -129,7 +127,6 @@ function SignUpForm() {
           Already have an account? <Link to="/login">Login</Link>
         </p>
       </Form>
-      <DevTool control={control} />
     </>
   );
 }

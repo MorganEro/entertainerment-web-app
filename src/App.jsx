@@ -1,21 +1,11 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { lazy, Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import AppLayout from './ui/AppLayout';
 import GlobalStyles from './styles/GlobalStyles';
+import AppLayout from './ui/AppLayout';
 import ProtectedRoute from './ui/ProtectedRoute';
-import { lazy, Suspense } from 'react';
-import Spinner, { FullPageSpinner } from './ui/Spinner';
-
-// import Home from './pages/Home';
-// import Login from './pages/Login';
-// import Movies from './pages/Movies';
-// import TvSeries from './pages/TvSeries';
-// import Bookmarks from './pages/Bookmarks';
-// import PageNotFound from './pages/PageNotFound';
-// import UserSettings from './pages/UserSettings';
-// import SignUp from './features/authentication/SignUp';
+import { FullPageSpinner } from './ui/Spinner';
 
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
@@ -37,7 +27,6 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyles />
       <BrowserRouter>
         <Suspense fallback={<FullPageSpinner />}>

@@ -1,4 +1,3 @@
-import { DevTool } from '@hookform/devtools';
 import { IKContext } from 'imagekitio-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -51,7 +50,6 @@ function UpdateUserForm() {
     handleSubmit,
     reset,
     formState: { errors, isValid, isSubmitting },
-    control,
     getValues,
     watch,
   } = useForm({ mode: 'onChange' });
@@ -263,7 +261,6 @@ function UpdateUserForm() {
           Update Profile
         </Button>
       </div>
-      <DevTool control={control} />
     </UpdateForm>
   );
 }

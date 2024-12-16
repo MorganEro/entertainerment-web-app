@@ -1,4 +1,3 @@
-import { DevTool } from '@hookform/devtools';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -21,7 +20,6 @@ function LoginForm() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, isValid },
-    control,
   } = useForm({
     mode: 'onChange',
   });
@@ -98,7 +96,6 @@ function LoginForm() {
           Don&apos;t have an account? <Link to="/signUp">Sign Up</Link>
         </p>
       </Form>
-      <DevTool control={control} />
     </>
   );
 }
