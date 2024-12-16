@@ -39,7 +39,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: (https://github.com/MorganEro/entertainment-web-app)
-- Live Site URL: (https://morganero.github.io/entertainment-web-app/)
+- Live Site URL: (https://fm-entertainment-web-app.netlify.app)
 
 ## My process
 
