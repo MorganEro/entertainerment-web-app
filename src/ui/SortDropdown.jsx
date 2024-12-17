@@ -62,7 +62,7 @@ const Option = styled.div`
   }
 `;
 
-function SortByDropdown({ $isOpen, onOptionClick }) {
+function SortDropdown({ $isOpen, onOptionClick }) {
   const sortOptions = [
     { value: 'year-desc', label: 'Newest First' },
     { value: 'year-asc', label: 'Oldest First' },
@@ -100,9 +100,9 @@ function SortByDropdown({ $isOpen, onOptionClick }) {
   );
 }
 
-SortByDropdown.propTypes = {
+SortDropdown.propTypes = {
   $isOpen: PropTypes.bool.isRequired,
   onOptionClick: PropTypes.func.isRequired,
 };
 
-export default SortByDropdown;
+export default SortDropdown;

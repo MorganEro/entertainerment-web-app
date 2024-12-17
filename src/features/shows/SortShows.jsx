@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import SortByDropdown from '../../ui/SortbyDropdown';
+import SortDropdown from '../../ui/SortDropdown';
 
 const SortContainer = styled.div`
   position: relative;
@@ -56,7 +56,7 @@ const SortShows = () => {
         $isActive={$isOpen}>
         <IoMdArrowDropdown />
       </SortButton>
-      <SortByDropdown
+      <SortDropdown
         $isOpen={$isOpen}
         onOptionClick={handleOptionClick}
         selectedOption={sortBy}
