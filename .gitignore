@@ -27,3 +27,5 @@ dist-ssr
 *.fig
 *.xd
 .prettierignore
+# Local Netlify folder
+.netlify

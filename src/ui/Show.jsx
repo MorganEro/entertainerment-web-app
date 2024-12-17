@@ -181,7 +181,8 @@ function Show({ $variant, show }) {
     <IKContext
       publicKey={publicKey}
       urlEndpoint={urlEndpoint}
-      authenticationEndpoint={authenticationEndpoint}>
+      // authenticationEndpoint={authenticationEndpoint}>
+      authenticationEndpoint="/netlify/functions/auth">
       <ShowContainer $variant={$variant}>
         <ImgContainer $variant={$variant}>
           <Picture>
