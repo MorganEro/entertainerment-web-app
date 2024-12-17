@@ -2,7 +2,11 @@ import { IKContext, IKImage } from 'imagekitio-react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { useBookmark } from '../features/bookmarked/useBookmark';
-import { urlEndpoint } from '../services/imagekitConfig';
+import {
+  authenticationEndpoint,
+  publicKey,
+  urlEndpoint,
+} from '../services/imagekitConfig';
 import BookmarkIcon from './BookmarkIcon';
 import Heading from './Heading';
 
@@ -174,7 +178,10 @@ function Show({ $variant, show }) {
   };
 
   return (
-    <IKContext urlEndpoint={urlEndpoint}>
+    <IKContext
+      publicKey={publicKey}
+      urlEndpoint={urlEndpoint}
+      authenticationEndpoint={authenticationEndpoint}>
       <ShowContainer $variant={$variant}>
         <ImgContainer $variant={$variant}>
           <Picture>
