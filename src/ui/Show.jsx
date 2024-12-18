@@ -189,7 +189,7 @@ function Show({ $variant, show }) {
             urlEndpoint={urlEndpoint}
             src={getImageSrc('small')}
             alt={title}
-            transformation={[{ height: 230, width: 470 }]}
+            transformation={[{ height: 230, width: 470, format: 'webp' }]}
             loading="lazy"
             lqip={{ active: true, quality: 20 }}
           />
