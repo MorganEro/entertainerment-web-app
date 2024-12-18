@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { IKUpload } from 'imagekitio-react';
 
-const StyledIKUpload = styled(IKUpload)`
+const FileInput = styled.input.attrs({ type: 'file' })`
   font-size: 1.4rem;
   border-radius: var(--border-radius-sm);
 
@@ -24,4 +23,4 @@ const StyledIKUpload = styled(IKUpload)`
   }
 `;
 
-export default StyledIKUpload;
+export default FileInput;

@@ -1,15 +1,4 @@
-[build]
-  publish = "dist"
-  command = "npm run build"
-
-[functions]
-  directory = "netlify/functions"
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-  
-[[plugins]]
-  package = "netlify-plugin-imagekit"

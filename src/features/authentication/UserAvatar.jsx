@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import { IKImage } from 'imagekitio-react';
+import { urlEndpoint } from '../../services/imagekitConfig';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import ToolTips from '../../ui/ToolTips';
 import { useUser } from './useUser';
-import { IKContext, IKImage } from 'imagekitio-react';
-import { urlEndpoint } from '../../services/imagekitConfig';
 
 export const AvatarImage = styled(IKImage)`
   width: 2.4rem;
@@ -41,30 +41,29 @@ function UserAvatar() {
   };
 
   return (
-    <IKContext urlEndpoint={urlEndpoint}>
-      <ToolTips
-        content="User Profile"
-        $size={1.3}
-        To="avatar">
-        <AvatarImage
-          key={user.user_metadata.avatar}
-          id="avatar"
-          onClick={handleClick}
-          alt="User Avatar"
-          src={avatarUrl}
-          lqip={{ active: true, quality: 20 }}
-          loading="lazy"
-          transformation={[
-            {
-              height: 40,
-              width: 40,
-              quality: 70,
-              format: 'webp',
-            },
-          ]}
-        />
-      </ToolTips>
-    </IKContext>
+    <ToolTips
+      content="User Profile"
+      $size={1.3}
+      To="avatar">
+      <AvatarImage
+        urlEndpoint={urlEndpoint}
+        key={user.user_metadata.avatar}
+        id="avatar"
+        onClick={handleClick}
+        alt="User Avatar"
+        src={avatarUrl}
+        lqip={{ active: true, quality: 20 }}
+        loading="lazy"
+        transformation={[
+          {
+            height: 40,
+            width: 40,
+            quality: 70,
+            format: 'webp',
+          },
+        ]}
+      />
+    </ToolTips>
   );
 }
 

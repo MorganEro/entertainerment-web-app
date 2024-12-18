@@ -4,7 +4,6 @@ import UpdateUserForm from '../features/authentication/UpdateUserForm';
 import { useLogout } from '../features/authentication/useLogout';
 import Button from '../ui/Button';
 import SpinnerMini from '../ui/SpinnerMini';
-import { AvatarProvider } from '../context/avatarContext/AvatarProvider';
 
 const UserSettingContainer = styled.div`
   display: flex;
@@ -51,10 +50,7 @@ function UserSettings() {
         {!isPending ? <HiArrowRightOnRectangle size={20} /> : <SpinnerMini />}{' '}
         Log Out
       </Button>
-
-      <AvatarProvider>
-        <UpdateUserForm />
-      </AvatarProvider>
+      <UpdateUserForm />
     </UserSettingContainer>
   );
 }

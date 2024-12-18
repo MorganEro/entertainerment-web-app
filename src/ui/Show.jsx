@@ -1,12 +1,8 @@
-import { IKContext, IKImage } from 'imagekitio-react';
+import { IKImage } from 'imagekitio-react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { useBookmark } from '../features/bookmarked/useBookmark';
-import {
-  authenticationEndpoint,
-  publicKey,
-  urlEndpoint,
-} from '../services/imagekitConfig';
+import { urlEndpoint } from '../services/imagekitConfig';
 import BookmarkIcon from './BookmarkIcon';
 import Heading from './Heading';
 
@@ -178,85 +174,80 @@ function Show({ $variant, show }) {
   };
 
   return (
-    <IKContext
-      publicKey={publicKey}
-      urlEndpoint={urlEndpoint}
-      // authenticationEndpoint={authenticationEndpoint}>
-      authenticationEndpoint="/netlify/functions/auth">
-      <ShowContainer $variant={$variant}>
-        <ImgContainer $variant={$variant}>
-          <Picture>
-            <source
-              srcSet={getImageSrc('large')}
-              media="(min-width: 64em)"
-            />
-            <source
-              srcSet={getImageSrc('medium')}
-              media="(min-width: 48em)"
-            />
-            <IKImage
-              src={getImageSrc('small')}
-              alt={title}
-              transformation={[{ height: 230, width: 470 }]}
-              loading="lazy"
-              lqip={{ active: true, quality: 20 }}
-            />
-          </Picture>
+    <ShowContainer $variant={$variant}>
+      <ImgContainer $variant={$variant}>
+        <Picture>
+          <source
+            srcSet={getImageSrc('large')}
+            media="(min-width: 64em)"
+          />
+          <source
+            srcSet={getImageSrc('medium')}
+            media="(min-width: 48em)"
+          />
+          <IKImage
+            urlEndpoint={urlEndpoint}
+            src={getImageSrc('small')}
+            alt={title}
+            transformation={[{ height: 230, width: 470 }]}
+            loading="lazy"
+            lqip={{ active: true, quality: 20 }}
+          />
+        </Picture>
 
-          <PlayContainer>
-            <svg
-              width="30"
-              height="30"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M15 0C6.713 0 0 6.713 0 15c0 8.288 6.713 15 15 15 8.288 0 15-6.712 15-15 0-8.287-6.712-15-15-15Zm-3 21V8l9 6.5-9 6.5Z"
-                fill="#FFF"
-              />
-            </svg>
-            <Heading as="h4">Play</Heading>
-          </PlayContainer>
-        </ImgContainer>
+        <PlayContainer>
+          <svg
+            width="30"
+            height="30"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15 0C6.713 0 0 6.713 0 15c0 8.288 6.713 15 15 15 8.288 0 15-6.712 15-15 0-8.287-6.712-15-15-15Zm-3 21V8l9 6.5-9 6.5Z"
+              fill="#FFF"
+            />
+          </svg>
+          <Heading as="h4">Play</Heading>
+        </PlayContainer>
+      </ImgContainer>
 
-        <BookmarkIcon
-          bookmarked={isBookmarked}
-          $position="absolute"
-          onClick={handleToggleBookmark}
-        />
+      <BookmarkIcon
+        bookmarked={isBookmarked}
+        $position="absolute"
+        onClick={handleToggleBookmark}
+      />
 
-        <Description $variant={$variant}>
-          <div>
-            <span>{year}</span>
-            <span>&#8226;</span>
-            <img
-              src={
-                category === 'Movie'
-                  ? '/icon-category-movie.svg'
-                  : '/icon-category-tv.svg'
-              }
-              alt={category}
-            />{' '}
-            <span className="category">
-              {category === 'Movie' ? 'Movie' : 'TV Series'}
-            </span>
-            <span>&#8226;</span>
-            <span>{rating}</span>
-          </div>
-          {$variant === 'Trending' ? (
-            <Heading
-              as="h3"
-              className="title">
-              {title}
-            </Heading>
-          ) : (
-            <Heading
-              as="h4"
-              className="title">
-              {title}
-            </Heading>
-          )}
-        </Description>
-      </ShowContainer>
-    </IKContext>
+      <Description $variant={$variant}>
+        <div>
+          <span>{year}</span>
+          <span>&#8226;</span>
+          <img
+            src={
+              category === 'Movie'
+                ? '/icon-category-movie.svg'
+                : '/icon-category-tv.svg'
+            }
+            alt={category}
+          />{' '}
+          <span className="category">
+            {category === 'Movie' ? 'Movie' : 'TV Series'}
+          </span>
+          <span>&#8226;</span>
+          <span>{rating}</span>
+        </div>
+        {$variant === 'Trending' ? (
+          <Heading
+            as="h3"
+            className="title">
+            {title}
+          </Heading>
+        ) : (
+          <Heading
+            as="h4"
+            className="title">
+            {title}
+          </Heading>
+        )}
+      </Description>
+    </ShowContainer>
   );
 }
 

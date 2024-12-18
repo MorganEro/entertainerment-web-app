@@ -53,7 +53,7 @@ const ShowPage = ({
   if (isPending) return <Spinner />;
 
   return (
-    <ShowContainer>
+    <ShowContainer $variant={isHomepage ? 'home' : ''}>
       <SearchBar placeholder={placeholder} />
       <Heading as="h2">
         {title}{' '}
@@ -93,7 +93,7 @@ const ShowPage = ({
           {title2 && (
             <>
               <Heading
-                as="h1"
+                as="h2"
                 className="secondHeading">
                 {title2}{' '}
               </Heading>

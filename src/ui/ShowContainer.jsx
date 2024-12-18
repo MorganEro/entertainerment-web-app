@@ -31,7 +31,11 @@ const ShowContainer = styled.div`
   }
 
   & .secondHeading {
-    padding-top: 5rem;
+    padding-top: 3rem;
+
+    @media (min-width: 48em) {
+      padding-top: 4rem;
+    }
   }
 
   ${({ $variant }) =>

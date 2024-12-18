@@ -49,5 +49,4 @@ function Home() {
   );
 }
 
-Home.whyDidYouRender = true;
 export default Home;

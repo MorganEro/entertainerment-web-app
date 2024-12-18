@@ -1,27 +1,17 @@
-import { IKContext } from 'imagekitio-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAvatar } from '../../context/avatarContext/useAvatar';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
-import {
-  authenticator,
-  publicKey,
-  urlEndpoint,
-} from '../../services/imagekitConfig';
-import AvatarPreview from '../../ui/AvatarPreview';
 import Button from '../../ui/Button';
-import StyledIKUpload from '../../ui/FileInput';
+import FileInput from '../../ui/FileInput';
 import Heading from '../../ui/Heading';
 import Input from '../../ui/Input';
 import InputRow from '../../ui/InputRow';
 import PasswordCriteriaList from '../../ui/PasswordCriteriaList';
 import PasswordInputRow from '../../ui/PasswordInputRow';
-import StyledProgress from '../../ui/ProgressBar';
 import UpdateForm from '../../ui/UpdateForm';
 import UpdateInputGroup from '../../ui/UpdateInputGroup';
 import { useUpdateUser } from './useUpdateUser';
 import { useUser } from './useUser';
-import toast from 'react-hot-toast';
 
 function UpdateUserForm() {
   useDocumentTitle('Account');
@@ -30,19 +20,6 @@ function UpdateUserForm() {
     email,
     user_metadata: { fullName: currentFullName },
   } = user;
-  const {
-    avatarName,
-    imagekitUrl,
-    setUploadProgress,
-    setPreview,
-    handleImageUpload,
-    handleAvatarOnSuccess,
-    handleUploadError,
-    preview,
-    uploadProgress,
-    handleUploadProgress,
-    compressedFile,
-  } = useAvatar();
 
   const { updateUser, isPending } = useUpdateUser();
   const {
@@ -59,7 +36,10 @@ function UpdateUserForm() {
   const isButtonDisabled = isPending || !isValid || isSubmitting;
 
   const onSubmit = data => {
-    const updatedData = { ...data, avatar: imagekitUrl };
+    const updatedData = {
+      ...data,
+      avatar: data.avatar && data.avatar.length > 0 ? data.avatar[0] : null,
+    };
 
     const values = getValues();
     const fieldsToCheck = ['fullName', 'password', 'passwordConfirm', 'avatar'];
@@ -71,7 +51,6 @@ function UpdateUserForm() {
       onSuccess: () => {
         reset();
         setShowPassword(false);
-        setUploadProgress(0);
       },
     });
   };
@@ -79,8 +58,6 @@ function UpdateUserForm() {
   const handleCancel = event => {
     event.preventDefault();
     reset();
-    setUploadProgress(0);
-    setPreview(null);
   };
 
   return (
@@ -203,48 +180,13 @@ function UpdateUserForm() {
             className="label">
             Avatar Image
           </label>
-          <IKContext
-            publicKey={publicKey}
-            urlEndpoint={urlEndpoint}
-            authenticator={authenticator}>
-            <StyledIKUpload
-              name="avatar"
-              id="avatar"
-              folder="avatars"
-              fileName={avatarName}
-              accept=".jpg,.jpeg,.png,.gif,.webp"
-              onError={handleUploadError}
-              onUploadProgress={handleUploadProgress}
-              onSuccess={handleAvatarOnSuccess}
-              validateFile={file => {
-                const isValidSize = file.size < 2500000; // 2.5MB
-                const isValidType = file.name.match(
-                  /\.(jpg|jpeg|png|gif|webp)$/i
-                );
-                if (!isValidSize) {
-                  toast.error('File size should be less than 2.5MB');
-                }
-                if (!isValidType) {
-                  toast.error(
-                    'Invalid file type. Only jpg, jpeg, png, gif, and webp are allowed.'
-                  );
-                }
-                return isValidSize && isValidType;
-              }}
-              checks={`"file.size" < "25mb"`}
-              onChange={handleImageUpload}
-              file={compressedFile}
-              {...register('avatar')}
-            />
-            {preview && <AvatarPreview />}
-            {uploadProgress > 0 && (
-              <StyledProgress
-                value={uploadProgress}
-                max="100">
-                {uploadProgress}%
-              </StyledProgress>
-            )}
-          </IKContext>
+          <FileInput
+            name="avatar"
+            id="avatar"
+            accept="image/*"
+            disabled={isPending}
+            {...register('avatar')}
+          />
         </UpdateInputGroup>
       </div>
       <div className="buttonGroup">
