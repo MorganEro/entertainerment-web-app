@@ -85,8 +85,6 @@ export async function getBookmarkedShows(userId) {
     throw new Error('Bookmarked shows not found');
   }
 
-  console.log('fetched data: ', data);
-  // Extract the shows from the joined data
   const bookmarkedShows = data.map(bookmark => bookmark.shows);
 
   return bookmarkedShows;

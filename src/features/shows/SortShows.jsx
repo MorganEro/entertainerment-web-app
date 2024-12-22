@@ -6,7 +6,7 @@ import SortDropdown from '../../ui/SortDropdown';
 
 const SortContainer = styled.div`
   position: relative;
-  display: inline-block;
+  float: right;
   z-index: 9999;
 `;
 
