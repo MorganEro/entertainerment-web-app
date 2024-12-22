@@ -37,19 +37,6 @@ export async function getShowsTvSeries() {
 
   return data;
 }
-export async function getBookmarkedShows() {
-  const { data, error } = await supabase
-    .from('shows')
-    .select('*')
-    .eq('isBookmarked', 'TRUE');
-
-  if (error) {
-    console.error(error);
-    throw new Error('Bookmarked shows not found');
-  }
-
-  return data;
-}
 
 export async function getShowById(id) {
   const { data, error } = await supabase
@@ -77,5 +64,58 @@ export async function updateShow(id, obj) {
     console.error(error);
     throw new Error('show could not be updated');
   }
+  return data;
+}
+
+export async function getBookmarkedShows(userId) {
+  const { data, error } = await supabase
+    .from('userBookmark')
+    .select(
+      `
+      showId,
+      shows (
+        *
+      )
+    `
+    )
+    .eq('userId', userId);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Bookmarked shows not found');
+  }
+
+  console.log('fetched data: ', data);
+  // Extract the shows from the joined data
+  const bookmarkedShows = data.map(bookmark => bookmark.shows);
+
+  return bookmarkedShows;
+}
+
+export async function addBookmark(userId, showId) {
+  const { data, error } = await supabase
+    .from('userBookmark')
+    .insert([{ userId, showId }]);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Bookmark could not be added');
+  }
+
+  return data;
+}
+
+export async function deleteBookmark(userId, showId) {
+  const { data, error } = await supabase
+    .from('userBookmark')
+    .delete()
+    .eq('userId', userId)
+    .eq('showId', showId);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Bookmark could not be deleted');
+  }
+
   return data;
 }

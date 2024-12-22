@@ -10,6 +10,7 @@ import SortShows from '../features/shows/SortShows';
 import PropTypes from 'prop-types';
 import { useShows } from '../features/shows/useShows';
 import Trending from '../features/home/Trending';
+import { useUser } from '../features/authentication/useUser';
 
 const ShowPage = ({
   placeholder,
@@ -20,9 +21,11 @@ const ShowPage = ({
   isHomepage,
 }) => {
   const [searchParams] = useSearchParams();
+  const { user } = useUser();
+  const userId = user?.id;
   const query = searchParams.get('query') || '';
   const sortBy = searchParams.get('sortBy') || 'year-desc';
-  const { shows, isPending } = useShows(queryKey);
+  const { shows, isPending } = useShows(queryKey, userId);
 
   const filteredShows = shows
     .filter(show => show.title.toLowerCase().includes(query.toLowerCase()))
@@ -71,19 +74,23 @@ const ShowPage = ({
         <>
           {!isHomepage ? (
             <ShowList>
-              {!isCategory
-                ? filteredShows?.map(show => (
-                    <Show
-                      show={show}
-                      key={show.id}
-                    />
-                  ))
-                : bookmarkedMovies?.map(show => (
-                    <Show
-                      show={show}
-                      key={show.id}
-                    />
-                  ))}
+              {!isCategory ? (
+                filteredShows?.map(show => (
+                  <Show
+                    show={show}
+                    key={show.id}
+                  />
+                ))
+              ) : bookmarkedMovies.length > 0 ? (
+                bookmarkedMovies?.map(show => (
+                  <Show
+                    show={show}
+                    key={show.id}
+                  />
+                ))
+              ) : (
+                <p>No bookmarked Movies</p>
+              )}
             </ShowList>
           ) : (
             <TrendingContainer>
@@ -98,26 +105,30 @@ const ShowPage = ({
                 {title2}{' '}
               </Heading>
               <ShowList>
-                {isHomepage
-                  ? recommendedShows?.map(show => (
-                      <Show
-                        show={show}
-                        key={show.id}
-                      />
-                    ))
-                  : !isCategory
-                  ? filteredShows?.map(show => (
-                      <Show
-                        show={show}
-                        key={show.id}
-                      />
-                    ))
-                  : bookmarkedTVSeries?.map(show => (
-                      <Show
-                        show={show}
-                        key={show.id}
-                      />
-                    ))}
+                {isHomepage ? (
+                  recommendedShows?.map(show => (
+                    <Show
+                      show={show}
+                      key={show.id}
+                    />
+                  ))
+                ) : !isCategory ? (
+                  filteredShows?.map(show => (
+                    <Show
+                      show={show}
+                      key={show.id}
+                    />
+                  ))
+                ) : bookmarkedTVSeries.length > 0 ? (
+                  bookmarkedTVSeries?.map(show => (
+                    <Show
+                      show={show}
+                      key={show.id}
+                    />
+                  ))
+                ) : (
+                  <p>No bookmarked TV Series</p>
+                )}
               </ShowList>
             </>
           )}

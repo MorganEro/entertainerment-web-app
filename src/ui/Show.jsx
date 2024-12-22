@@ -153,10 +153,7 @@ const Description = styled.div`
 
 function Show({ $variant, show }) {
   const { year, title, category, rating } = show;
-  const { isBookmarked, handleToggleBookmark } = useBookmark(
-    show.isBookmarked,
-    show.id
-  );
+  const { isBookmarked, handleToggleBookmark } = useBookmark(show.id);
 
   const getImageSrc = size => {
     const baseUrl = 'https://ik.imagekit.io/3wvmuwil3/thumbnails/';

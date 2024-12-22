@@ -1,11 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateShow } from '../../services/apiShows';
+import { addBookmark, deleteBookmark } from '../../services/apiShows';
 
 export const useToggleBookmark = () => {
   const queryClient = useQueryClient();
 
   const { mutate: toggleBookmark } = useMutation({
-    mutationFn: ({ id, isBookmarked }) => updateShow(id, { isBookmarked }),
+    mutationFn: async ({ userId, showId, isBookmarked }) => {
+      if (isBookmarked) {
+        // Add bookmark
+        return await addBookmark(userId, showId);
+      } else {
+        // Remove bookmark
+        return await deleteBookmark(userId, showId);
+      }
+    },
     onSettled: () => {
       queryClient.invalidateQueries('bookmarkedShows');
     },

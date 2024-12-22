@@ -6,7 +6,7 @@ import {
   getShowsTvSeries,
 } from '../../services/apiShows';
 
-export const useShows = queryKey => {
+export const useShows = (queryKey, userId) => {
   const queryFn = () => {
     switch (queryKey) {
       case 'movies':
@@ -14,7 +14,7 @@ export const useShows = queryKey => {
       case 'tvSeries':
         return getShowsTvSeries();
       case 'bookmarks':
-        return getBookmarkedShows();
+        return getBookmarkedShows(userId);
       case 'allShows':
         return getShows();
       default:
@@ -27,8 +27,9 @@ export const useShows = queryKey => {
     error: showsError,
     isPending,
   } = useQuery({
-    queryKey: [queryKey],
+    queryKey: [queryKey, userId],
     queryFn,
+    enabled: queryKey !== 'bookmarks' || !!userId,
   });
 
   return {

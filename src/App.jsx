@@ -6,6 +6,7 @@ import GlobalStyles from './styles/GlobalStyles';
 import AppLayout from './ui/AppLayout';
 import ProtectedRoute from './ui/ProtectedRoute';
 import { FullPageSpinner } from './ui/Spinner';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
@@ -110,6 +111,7 @@ function App() {
           },
         }}
       />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
